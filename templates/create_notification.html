@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Notificación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Crear Notificación</h1>
+            <p class="subtitle">Ingresa los detalles de la notificación que deseas enviar.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <form method="POST" class="notification-form">
+                <section class="form-section">
+                    <h2>Detalles de la Notificación</h2>
+
+                    <!-- Título de la notificación -->
+                    <div class="form-group">
+                        <label for="title">Título:</label>
+                        <input type="text" name="title" id="title" class="form-control" required placeholder="Título de la notificación">
+                    </div>
+
+                    <!-- Mensaje de la notificación -->
+                    <div class="form-group">
+                        <label for="message">Mensaje:</label>
+                        <textarea name="message" id="message" class="form-control" required placeholder="Mensaje de la notificación"></textarea>
+                    </div>
+
+                    <!-- Destinatario de la notificación -->
+                    <div class="form-group">
+                        <label for="recipient">Destinatario:</label>
+                        <input type="email" name="recipient" id="recipient" class="form-control" required placeholder="Correo electrónico del destinatario">
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Crear Notificación</button>
+                    <a href="{{ url_for('view_notifications') }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

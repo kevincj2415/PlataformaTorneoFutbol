@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Partido - {{ match.equipo_local }} vs {{ match.equipo_visitante }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Detalles del Partido</h1>
+            <p class="subtitle">Aquí puedes ver todos los detalles del partido entre {{ match.equipo_local }} y {{ match.equipo_visitante }}.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <section class="match-info">
+                <div class="match-card">
+                    <h2>{{ match.equipo_local }} vs {{ match.equipo_visitante }}</h2>
+                    <p><strong>Fecha:</strong> {{ match.fecha }}</p>
+
+                    <!-- Mostrar resultado si está disponible -->
+                    <p><strong>Resultado:</strong>
+                        {% if match.resultado.equipo_local is not none and match.resultado.equipo_visitante is not none %}
+                            {{ match.resultado.equipo_local }} - {{ match.resultado.equipo_visitante }}
+                        {% else %}
+                            Pendiente
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="match-actions">
+                    <!-- Si el resultado aún no se ha ingresado, se permite editarlo -->
+                    {% if match.resultado.equipo_local is None or match.resultado.equipo_visitante is None %}
+                        <a href="{{ url_for('edit_match_result', id=match._id) }}" class="btn btn-primary">Editar Resultado</a>
+                    {% endif %}
+                    <a href="{{ url_for('view_matches') }}" class="btn btn-secondary">Volver a la lista de partidos</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

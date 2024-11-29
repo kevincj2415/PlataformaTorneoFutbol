@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Torneo - {{ tournament.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Editar Torneo: {{ tournament.nombre }}</h1>
+            <p class="subtitle">Realiza cambios en la información del torneo.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <form method="POST" class="tournament-form">
+                <section class="form-section">
+                    <h2>Detalles del Torneo</h2>
+                    <p class="form-description">Actualiza los detalles del torneo. Asegúrate de que la información sea correcta.</p>
+
+                    <!-- Nombre del Torneo -->
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Torneo:</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ tournament.nombre }}" required>
+                    </div>
+
+                    <!-- Formato del Torneo -->
+                    <div class="form-group">
+                        <label for="formato">Formato del Torneo:</label>
+                        <select name="formato" id="formato" class="form-control" required>
+                            <option value="eliminacion" {% if tournament.formato == 'eliminacion' %}selected{% endif %}>Eliminación Directa</option>
+                            <option value="round_robin" {% if tournament.formato == 'round_robin' %}selected{% endif %}>Round Robin</option>
+                            <option value="liga" {% if tournament.formato == 'liga' %}selected{% endif %}>Liga</option>
+                        </select>
+                    </div>
+
+                    <!-- Fecha de Inicio -->
+                    <div class="form-group">
+                        <label for="fecha_inicio">Fecha de Inicio:</label>
+                        <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ tournament.fecha_inicio }}" required>
+                    </div>
+
+                    <!-- Fecha de Fin -->
+                    <div class="form-group">
+                        <label for="fecha_fin">Fecha de Fin:</label>
+                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ tournament.fecha_fin }}" required>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Equipos Participantes</h2>
+                    <p class="form-description">Selecciona los equipos que participarán en este torneo. Los equipos actuales están listados abajo.</p>
+                    <div class="form-group">
+                        <label for="equipos">Equipos:</label>
+                        <input type="text" name="equipos" id="equipos" class="form-control" value="{{ ', '.join(tournament.equipos) }}" required>
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a href="{{ url_for('tournament_details', id=tournament._id) }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

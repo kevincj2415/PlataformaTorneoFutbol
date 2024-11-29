@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Torneos de Fútbol</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <!-- Barra de Navegación -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bienvenido a la Plataforma de Torneos de Fútbol</h1>
+            <p>Consulta los torneos y partidos disponibles, ¡Únete a la emoción del fútbol!</p>
+        </div>
+    </section>
+
+    <!-- Sección de Torneos -->
+    <section class="tournaments-section">
+        <div class="container">
+            <h2>Próximos Torneos</h2>
+            {% if tournaments %}
+                <div class="tournaments-list">
+                    {% for tournament in tournaments %}
+                        <div class="tournament-card">
+                            <h3>{{ tournament.nombre }}</h3>
+                            <p><strong>Fecha de inicio:</strong> {{ tournament.fecha_inicio }}</p>
+                            <p><strong>Fecha de finalización:</strong> {{ tournament.fecha_fin }}</p>
+                            <a href="{{ url_for('tournament_details', id=tournament._id) }}" class="btn btn-secondary">Ver detalles</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No hay torneos disponibles en este momento.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Sección de Partidos -->
+    <section class="matches-section">
+        <div class="container">
+            <h2>Partidos Programados</h2>
+            {% if matches %}
+                <div class="matches-list">
+                    {% for match in matches %}
+                        <div class="match-card">
+                            <p><strong>{{ match.equipo_local }} vs {{ match.equipo_visitante }}</strong></p>
+                            <p><strong>Fecha:</strong> {{ match.fecha }}</p>
+                            <a href="{{ url_for('match_details', id=match._id) }}" class="btn btn-secondary">Ver detalles</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No hay partidos programados en este momento.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Torneo - {{ tournament.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Detalles del Torneo</h1>
+            <p class="subtitle">Toda la información que necesitas sobre el torneo "{{ tournament.nombre }}"</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <section class="tournament-info">
+                <div class="tournament-card">
+                    <h2>{{ tournament.nombre }}</h2>
+                    <p><strong>Formato:</strong> {{ tournament.formato }}</p>
+                    <p><strong>Fecha de Inicio:</strong> {{ tournament.fecha_inicio }}</p>
+                    <p><strong>Fecha de Fin:</strong> {{ tournament.fecha_fin }}</p>
+                </div>
+
+                <h3>Equipos Participantes</h3>
+                <div class="teams-list">
+                    {% if tournament.equipos %}
+                        <ul>
+                            {% for equipo in tournament.equipos %}
+                                <li>{{ equipo }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay equipos registrados para este torneo.</p>
+                    {% endif %}
+                </div>
+
+                <div class="tournament-actions">
+                    <a href="{{ url_for('edit_tournament', id=tournament._id) }}" class="btn btn-primary">Editar Torneo</a>
+                    <form action="{{ url_for('delete_tournament', id=tournament._id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar Torneo</button>
+                    </form>
+                    <a href="{{ url_for('view_tournaments') }}" class="btn btn-secondary">Volver a la lista de torneos</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

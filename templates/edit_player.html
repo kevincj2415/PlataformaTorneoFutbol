@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Jugador - {{ player.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Editar Jugador: {{ player.nombre }}</h1>
+            <p class="subtitle">Realiza los cambios necesarios en la información del jugador.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <form method="POST" class="player-form">
+                <section class="form-section">
+                    <h2>Detalles del Jugador</h2>
+                    <p class="form-description">Modifica los datos del jugador.</p>
+
+                    <!-- Nombre del Jugador -->
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Jugador:</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ player.nombre }}" required>
+                    </div>
+
+                    <!-- Edad del Jugador -->
+                    <div class="form-group">
+                        <label for="edad">Edad del Jugador:</label>
+                        <input type="number" name="edad" id="edad" class="form-control" value="{{ player.edad }}" required>
+                    </div>
+
+                    <!-- Posición del Jugador -->
+                    <div class="form-group">
+                        <label for="posicion">Posición del Jugador:</label>
+                        <input type="text" name="posicion" id="posicion" class="form-control" value="{{ player.posicion }}" required>
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a href="{{ url_for('team_details', id=team._id) }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

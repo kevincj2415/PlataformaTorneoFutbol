@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Partido - Plataforma de Torneos de Fútbol</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Crear Nuevo Partido</h1>
+            <p class="subtitle">Organiza el próximo partido entre dos equipos. Define la fecha y los equipos que jugarán.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <form method="POST" class="match-form">
+                <section class="form-section">
+                    <h2>Detalles del Partido</h2>
+                    <p class="form-description">Rellena los datos del partido que deseas crear.</p>
+
+                    <!-- Equipo Local -->
+                    <div class="form-group">
+                        <label for="equipo_local">Equipo Local:</label>
+                        <input type="text" name="equipo_local" id="equipo_local" class="form-control" required placeholder="Ej. Equipo A">
+                    </div>
+
+                    <!-- Equipo Visitante -->
+                    <div class="form-group">
+                        <label for="equipo_visitante">Equipo Visitante:</label>
+                        <input type="text" name="equipo_visitante" id="equipo_visitante" class="form-control" required placeholder="Ej. Equipo B">
+                    </div>
+
+                    <!-- Fecha del Partido -->
+                    <div class="form-group">
+                        <label for="fecha">Fecha del Partido:</label>
+                        <input type="datetime-local" name="fecha" id="fecha" class="form-control" required>
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Crear Partido</button>
+                    <a href="{{ url_for('view_matches') }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

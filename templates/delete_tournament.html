@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Eliminación - {{ tournament.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Confirmar Eliminación del Torneo</h1>
+            <p class="subtitle">Estás a punto de eliminar el torneo "{{ tournament.nombre }}". Esta acción no puede deshacerse.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <section class="confirmation-box">
+                <div class="tournament-card">
+                    <h2>¿Estás seguro?</h2>
+                    <p>Eliminar este torneo borrará permanentemente toda la información relacionada, incluidos los equipos y los partidos.</p>
+
+                    <!-- Botones de acción -->
+                    <div class="form-actions">
+                        <form action="{{ url_for('delete_tournament', id=tournament._id) }}" method="POST">
+                            <button type="submit" class="btn btn-danger">Eliminar Torneo</button>
+                        </form>
+                        <a href="{{ url_for('tournament_details', id=tournament._id) }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partidos Programados - Plataforma de Torneos de Fútbol</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Partidos Programados</h1>
+            <p class="subtitle">Aquí puedes ver todos los partidos programados para los torneos. Haz clic en un partido para ver más detalles.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <section class="match-list">
+                <h2>Lista de Partidos</h2>
+                <p class="section-description">Estos son los partidos que están programados hasta el momento.</p>
+
+                <!-- Lista de partidos -->
+                <div class="match-cards">
+                    {% if matches %}
+                        {% for match in matches %}
+                            <div class="match-card">
+                                <h3>{{ match.equipo_local }} vs {{ match.equipo_visitante }}</h3>
+                                <p><strong>Fecha:</strong> {{ match.fecha }}</p>
+                                <p><strong>Resultado:</strong> 
+                                    {% if match.resultado.equipo_local is not none and match.resultado.equipo_visitante is not none %}
+                                        {{ match.resultado.equipo_local }} - {{ match.resultado.equipo_visitante }}
+                                    {% else %}
+                                        Pendiente
+                                    {% endif %}
+                                </p>
+                                <a href="{{ url_for('match_details', id=match._id) }}" class="btn btn-primary">Ver Detalles</a>
+                                <a href="{{ url_for('edit_match_result', id=match._id) }}" class="btn btn-secondary">Editar Resultado</a>
+                                <form action="{{ url_for('delete_match', id=match._id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">Eliminar Partido</button>
+                                </form>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay partidos programados en este momento.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Botón para crear un nuevo partido -->
+                <div class="create-match-btn">
+                    <a href="{{ url_for('create_match') }}" class="btn btn-primary">Crear Nuevo Partido</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

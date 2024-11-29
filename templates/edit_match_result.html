@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Resultado del Partido - {{ match.equipo_local }} vs {{ match.equipo_visitante }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Editar Resultado del Partido</h1>
+            <p class="subtitle">Ingresa el resultado final del partido entre {{ match.equipo_local }} y {{ match.equipo_visitante }}.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <form method="POST" class="match-result-form">
+                <section class="form-section">
+                    <h2>Resultado del Partido</h2>
+                    <p class="form-description">Introduce los goles de cada equipo en el partido.</p>
+
+                    <!-- Resultado del Equipo Local -->
+                    <div class="form-group">
+                        <label for="resultado_local">Resultado del Equipo Local:</label>
+                        <input type="number" name="resultado_local" id="resultado_local" class="form-control" value="{{ match.resultado.equipo_local if match.resultado.equipo_local else '' }}" required>
+                    </div>
+
+                    <!-- Resultado del Equipo Visitante -->
+                    <div class="form-group">
+                        <label for="resultado_visitante">Resultado del Equipo Visitante:</label>
+                        <input type="number" name="resultado_visitante" id="resultado_visitante" class="form-control" value="{{ match.resultado.equipo_visitante if match.resultado.equipo_visitante else '' }}" required>
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Resultado</button>
+                    <a href="{{ url_for('match_details', id=match._id) }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Equipo - {{ team.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">Plataforma Torneos</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('view_tournaments') }}">Torneos</a></li>
+                <li><a href="{{ url_for('view_matches') }}">Partidos</a></li>
+                <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cabecera -->
+    <header>
+        <div class="container">
+            <h1 class="title">Editar Equipo: {{ team.nombre }}</h1>
+            <p class="subtitle">Realiza los cambios necesarios en la información del equipo.</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <div class="container">
+            <form method="POST" class="team-form">
+                <section class="form-section">
+                    <h2>Detalles del Equipo</h2>
+                    <p class="form-description">Actualiza el nombre del equipo y los jugadores. Asegúrate de que la información sea correcta.</p>
+
+                    <!-- Nombre del Equipo -->
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Equipo:</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ team.nombre }}" required>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Jugadores</h2>
+                    <p class="form-description">Agrega o elimina jugadores de este equipo.</p>
+
+                    <!-- Campo para agregar un jugador -->
+                    <div class="form-group">
+                        <label for="jugador_nombre">Nombre del Jugador:</label>
+                        <input type="text" id="jugador_nombre" class="form-control" placeholder="Nombre del jugador">
+                        <button type="button" id="add_player" class="btn btn-secondary">Agregar Jugador</button>
+                    </div>
+
+                    <!-- Lista de jugadores añadidos -->
+                    <div class="form-group">
+                        <ul id="players_list">
+                            {% for jugador in team.jugadores %}
+                                <li>
+                                    {{ jugador.nombre }}
+                                    <button type="button" class="remove-player btn btn-danger" data-id="{{ loop.index }}">Eliminar</button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Botones de acción -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a href="{{ url_for('team_details', id=team._id) }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plataforma de Torneos de Fútbol | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.getElementById('add_player').addEventListener('click', function() {
+            var playerName = document.getElementById('jugador_nombre').value;
+            if (playerName.trim() !== '') {
+                var li = document.createElement('li');
+                li.textContent = playerName;
+                var removeButton = document.createElement('button');
+                removeButton.textContent = 'Eliminar';
+                removeButton.classList.add('remove-player', 'btn', 'btn-danger');
+                li.appendChild(removeButton);
+                document.getElementById('players_list').appendChild(li);
+
+                // Clear the input field
+                document.getElementById('jugador_nombre').value = '';
+
+                // Add remove player functionality
+                removeButton.addEventListener('click', function() {
+                    li.remove();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
